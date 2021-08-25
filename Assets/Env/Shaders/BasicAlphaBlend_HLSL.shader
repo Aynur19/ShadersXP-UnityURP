@@ -1,19 +1,24 @@
-﻿Shader "Custom/Basic Textured (HLSL)"
+﻿Shader "Custom/Basic Alpha Blend (HLSL)"
 {
     Properties
     {
         _MainTex("Texture", 2D) = "white" {}
+        [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 0
+        [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 0
     }
 
     SubShader
     {
         Tags
 		{
+            "Queue" = "Transparent"
 			"PreviewType" = "Plane"
 		}
 
         Pass
         {
+            Blend [_SrcBlend] [_DstBlend]
+
             HLSLPROGRAM
             #pragma vertex Vert
             #pragma fragment Fragment
